@@ -64,7 +64,7 @@ nfs_file_open(struct inode *inode, struct file *filp)
 {
 	int res;
 
-	dprintk("NFS: open file(%pD2)\n", filp);
+	dprintk("File system: open file(%pD2)\n", filp);
 
 	nfs_inc_stats(inode, NFSIOS_VFSOPEN);
 	res = nfs_check_flags(filp->f_flags);
@@ -80,7 +80,7 @@ nfs_file_open(struct inode *inode, struct file *filp)
 int
 nfs_file_release(struct inode *inode, struct file *filp)
 {
-	dprintk("NFS: release(%pD2)\n", filp);
+	dprintk("File system: release(%pD2)\n", filp);
 
 	nfs_inc_stats(inode, NFSIOS_VFSRELEASE);
 	nfs_file_clear_open_context(filp);
@@ -143,7 +143,7 @@ nfs_file_flush(struct file *file, fl_owner_t id)
 	struct inode	*inode = file_inode(file);
 	errseq_t since;
 
-	dprintk("NFS: flush(%pD2)\n", file);
+	dprintk("File system: flush(%pD2)\n", file);
 
 	nfs_inc_stats(inode, NFSIOS_VFSFLUSH);
 	if ((file->f_mode & FMODE_WRITE) == 0)
@@ -192,7 +192,7 @@ nfs_file_splice_read(struct file *in, loff_t *ppos, struct pipe_inode_info *pipe
 	struct inode *inode = file_inode(in);
 	ssize_t result;
 
-	dprintk("NFS: splice_read(%pD2, %zu@%llu)\n", in, len, *ppos);
+	dprintk("File system: splice_read(%pD2, %zu@%llu)\n", in, len, *ppos);
 
 	result = nfs_start_io_read(inode);
 	if (result)
@@ -241,7 +241,7 @@ nfs_file_fsync_commit(struct file *file, int datasync)
 	struct inode *inode = file_inode(file);
 	int ret, ret2;
 
-	dprintk("NFS: fsync file(%pD2) datasync %d\n", file, datasync);
+	dprintk("File system: fsync file(%pD2) datasync %d\n", file, datasync);
 
 	nfs_inc_stats(inode, NFSIOS_VFSFSYNC);
 	ret = nfs_commit_inode(inode, FLUSH_SYNC);
